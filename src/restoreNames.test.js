@@ -27,6 +27,18 @@ describe('restoreNames', () => {
     expect(users[0].firstName).toBe('Mike');
   });
 
+  it('should restore firstName when it is null', () => {
+    const users = [
+      {
+        firstName: null, lastName: 'Brown', fullName: 'Lara Brown',
+      },
+    ];
+
+    restoreNames(users);
+
+    expect(users[0].firstName).toBe('Lara');
+  });
+
   it('should not change firstName if it already exists', () => {
     const users = [
       {
@@ -73,5 +85,13 @@ describe('restoreNames', () => {
     restoreNames(users);
 
     expect(users).toEqual([]);
+  });
+
+  it('should return undefined', () => {
+    const users = [{ fullName: 'John Doe' }];
+
+    const result = restoreNames(users);
+
+    expect(result).toBeUndefined();
   });
 });
